@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkreact_homework_template=self.webpackChunkreact_homework_template||[]).push([[837],{4837:function(e,t,o){o.r(t);var a=o(9434),r=o(7689),c=o(3541),n=o(3329);t.default=function(e){var t=e.children,o=(0,a.v9)(c.To),h=(0,r.TH)().state;return o?(0,n.jsx)(r.Fg,{to:h||"/goit-react-hw-08-phonebook/contacts"}):t}}}]);
+//# sourceMappingURL=837.8419ef99.chunk.js.map

@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkreact_homework_template=self.webpackChunkreact_homework_template||[]).push([[126],{7126:function(e,t,o){o.r(t);var r=o(9434),a=o(7689),n=o(3541),c=o(3329);t.default=function(e){var t=e.children,o=(0,r.v9)(n.To),h=(0,a.TH)();return o?t:(0,c.jsx)(a.Fg,{to:"/goit-react-hw-08-phonebook/login",state:h})}}}]);
+//# sourceMappingURL=126.7da3e37a.chunk.js.map
