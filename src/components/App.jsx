@@ -1,6 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import React, { lazy } from 'react';
 import Layout from './Layout/Layout';
+import { Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { getProfile } from '../redux/auth/thunk';
+import { useDispatch } from 'react-redux';
 
 const HomePage = lazy(() => import('./Pages/HomePage/HomePage'));
 const Registration = lazy(() => import('./Pages/Registration//Registration'));
@@ -8,16 +12,23 @@ const LogIn = lazy(() => import('./Pages/LogIn/LogIn'));
 const Contacts = lazy(() => import('./Pages/Contacts/Contacts'));
 const PrivateRoute = lazy(() => import('./PrivatePublicRoute/PrivateRoute'));
 const PublicRoute = lazy(() => import('./PrivatePublicRoute/PublicRoute'));
-// import { ContactForm } from './ContactForm/ContactForm';
-// import { ContactList } from './ContactList/ContactList';
-// import { ContactFilter } from './ContactFilter/ContactFilter';
-// import { Container, TitleHone, TitleHtwo } from './App.styled';
 
 export const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProfile());
+  }, [dispatch]);
   return (
     <Routes>
       <Route path="/goit-react-hw-08-phonebook/" element={<Layout />}>
-        <Route index element={<HomePage />} />
+        <Route
+          index
+          element={
+            <PublicRoute>
+              <HomePage />
+            </PublicRoute>
+          }
+        />
         <Route
           path="register"
           element={
@@ -43,13 +54,10 @@ export const App = () => {
           }
         />
       </Route>
+      <Route
+        path="*"
+        element={<Navigate to="/goit-react-hw-08-phonebook/" replace />}
+      />
     </Routes>
-    // <Container>
-    //   <TitleHone>Phonebook</TitleHone>
-    //   <ContactForm />
-    //   <TitleHtwo>Contacts</TitleHtwo>
-    //   <ContactFilter />
-    //   <ContactList />
-    // </Container>
   );
 };

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts, getLoading, getError } from 'redux/contactsSlice';
 import { getFilter } from 'redux/filterSlice';
-import { deleteContact, fetchContacts } from 'redux/contactsOperations';
+import { deleteContact, fetchContacts } from 'redux/auth/thunk';
 import { useEffect } from 'react';
 
 import {
@@ -11,7 +11,10 @@ import {
   ListItemButton,
 } from './ContactListItem.styled';
 
+import { accessToken } from '../../redux/auth/authSlice';
+
 export const ContactListItem = () => {
+  const token = useSelector(accessToken);
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
@@ -19,11 +22,13 @@ export const ContactListItem = () => {
   const error = useSelector(getError);
 
   useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+    if (token) {
+      dispatch(fetchContacts());
+    }
+  }, [dispatch, token]);
 
   const getFilteredContacts = () => {
-    if (!contacts) return [];
+    if (!contacts || !Array.isArray(contacts)) return [];
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );

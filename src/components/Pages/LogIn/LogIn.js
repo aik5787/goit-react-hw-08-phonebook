@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { signIn, getProfile } from '../../../redux/auth/thunk';
+import { signIn } from '../../../redux/auth/thunk';
 import Notiflix from 'notiflix';
 
 const LogIn = () => {
@@ -33,21 +33,21 @@ const LogIn = () => {
     dispatch(signIn(user))
       .unwrap()
       .then(response => {
-        // console.log(response);
+        console.log(response.token);
         if (response.token) {
           Notiflix.Notify.success('User is logged in');
         } else {
           Notiflix.Notify.failure('Login error');
         }
 
-        dispatch(getProfile())
-          .unwrap()
-          .then(response => {
-            console.log(response);
-          })
-          .catch(error => {
-            console.error('GetProfile error:', error);
-          });
+        // dispatch(getProfile())
+        //   .unwrap()
+        //   .then(response => {
+        //     console.log(response);
+        //   })
+        //   .catch(error => {
+        //     console.error('GetProfile error:', error);
+        //   });
 
         navigate('/goit-react-hw-08-phonebook/contacts');
         setFormData({
