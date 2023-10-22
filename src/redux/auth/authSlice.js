@@ -28,8 +28,6 @@ export const authSlice = createSlice({
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.loading = 'fulfilled';
-        // state.user = action.payload.user;
-        // state.token = action.payload.token;
         state.error = null;
         console.log('Fulfilled token:', state.token);
       })
@@ -45,7 +43,6 @@ export const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.error = null;
-        // console.log('Fulfilled token:', state.token);
       })
       .addCase(signIn.rejected, (state, action) => {
         state.loading = 'rejected';
@@ -58,7 +55,6 @@ export const authSlice = createSlice({
         state.loading = 'fulfilled';
         state.userProfile = action.payload;
         state.error = null;
-        // console.log('Fulfilled userProfile:', state.token);
       })
       .addCase(getProfile.rejected, (state, action) => {
         state.loading = 'rejected';

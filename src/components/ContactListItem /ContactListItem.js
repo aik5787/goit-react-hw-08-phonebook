@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getLoading, getError } from 'redux/contactsSlice';
+import {
+  getContacts,
+  getLoading,
+  getError,
+  openEditModal,
+} from 'redux/contactsSlice';
 import { getFilter } from 'redux/filterSlice';
 import { deleteContact, fetchContacts } from 'redux/auth/thunk';
 import { useEffect } from 'react';
@@ -21,6 +26,7 @@ export const ContactListItem = () => {
   const loading = useSelector(getLoading);
   const error = useSelector(getError);
 
+  console.log(contacts);
   useEffect(() => {
     if (token) {
       dispatch(fetchContacts());
@@ -34,6 +40,7 @@ export const ContactListItem = () => {
     );
   };
   const filteredContacts = getFilteredContacts();
+
   if (loading) {
     return <h2>Loading...</h2>;
   }
@@ -41,6 +48,7 @@ export const ContactListItem = () => {
   if (error) {
     return <h2>{error}</h2>;
   }
+
   if (contacts.length > 0) {
     return filteredContacts.map(contact => (
       <ListItem key={contact.id}>
@@ -48,6 +56,9 @@ export const ContactListItem = () => {
           <ListItemInfo>
             {contact.name}: {contact.number}
           </ListItemInfo>
+          <ListItemButton onClick={() => dispatch(openEditModal(contact))}>
+            Edit
+          </ListItemButton>
           <ListItemButton onClick={() => dispatch(deleteContact(contact.id))}>
             Delete
           </ListItemButton>

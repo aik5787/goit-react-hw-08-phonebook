@@ -12,7 +12,6 @@ import { accessToken, currentUser } from '../../redux/auth/authSlice';
 const Header = () => {
   const token = useSelector(accessToken);
   const user = useSelector(currentUser);
-  console.log('Token:', token);
 
   return (
     <Headercontainer>

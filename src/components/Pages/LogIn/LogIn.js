@@ -33,21 +33,11 @@ const LogIn = () => {
     dispatch(signIn(user))
       .unwrap()
       .then(response => {
-        console.log(response.token);
         if (response.token) {
           Notiflix.Notify.success('User is logged in');
         } else {
           Notiflix.Notify.failure('Login error');
         }
-
-        // dispatch(getProfile())
-        //   .unwrap()
-        //   .then(response => {
-        //     console.log(response);
-        //   })
-        //   .catch(error => {
-        //     console.error('GetProfile error:', error);
-        //   });
 
         navigate('/goit-react-hw-08-phonebook/contacts');
         setFormData({
@@ -56,7 +46,6 @@ const LogIn = () => {
         });
       })
       .catch(error => {
-        // Notiflix.Notify.failure('Log in is unsuccesfull, try again');
         console.error('Registration error:', error);
       });
   };

@@ -4,20 +4,27 @@ import Layout from './Layout/Layout';
 import { Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getProfile } from '../redux/auth/thunk';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { accessToken } from '../redux/auth/authSlice';
+// import { getIsEditModalOpen } from '../redux/contactsSlice';
 
 const HomePage = lazy(() => import('./Pages/HomePage/HomePage'));
 const Registration = lazy(() => import('./Pages/Registration//Registration'));
 const LogIn = lazy(() => import('./Pages/LogIn/LogIn'));
 const Contacts = lazy(() => import('./Pages/Contacts/Contacts'));
+
 const PrivateRoute = lazy(() => import('./PrivatePublicRoute/PrivateRoute'));
 const PublicRoute = lazy(() => import('./PrivatePublicRoute/PublicRoute'));
 
 export const App = () => {
+  // const isOpenModal = useSelector(getIsEditModalOpen);
   const dispatch = useDispatch();
+  const token = useSelector(accessToken);
   useEffect(() => {
-    dispatch(getProfile());
-  }, [dispatch]);
+    if (token) {
+      dispatch(getProfile());
+    }
+  }, [dispatch, token]);
   return (
     <Routes>
       <Route path="/goit-react-hw-08-phonebook/" element={<Layout />}>
