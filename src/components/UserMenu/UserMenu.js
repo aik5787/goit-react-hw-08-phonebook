@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../redux/auth/authSlice';
 import { deleteToken } from '../../redux/auth/thunk';
+import { Button, Box, Text } from '@chakra-ui/react';
 
 const UserMenu = ({ user }) => {
   const dispatch = useDispatch();
@@ -11,10 +12,10 @@ const UserMenu = ({ user }) => {
   };
 
   return (
-    <div>
-      <p>{user.email}</p>
-      <button onClick={handleLogOut}>Logout</button>
-    </div>
+    <Box>
+      <Text fontSize="lg">{user.email}</Text>
+      <Button onClick={handleLogOut}>Logout</Button>
+    </Box>
   );
 };
 

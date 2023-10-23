@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { signUp, signIn, getProfile } from './thunk';
+import { signUp, signIn } from './thunk';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 
 const initialState = {
   user: null,
-  userProfile: null,
+  // userProfile: null,
   token: '',
   error: null,
   loading: 'idle',
@@ -29,7 +29,6 @@ export const authSlice = createSlice({
       .addCase(signUp.fulfilled, (state, action) => {
         state.loading = 'fulfilled';
         state.error = null;
-        console.log('Fulfilled token:', state.token);
       })
       .addCase(signUp.rejected, (state, action) => {
         state.loading = 'rejected';
@@ -47,19 +46,19 @@ export const authSlice = createSlice({
       .addCase(signIn.rejected, (state, action) => {
         state.loading = 'rejected';
         state.error = action.payload.error;
-      })
-      .addCase(getProfile.pending, state => {
-        state.loading = 'pending';
-      })
-      .addCase(getProfile.fulfilled, (state, action) => {
-        state.loading = 'fulfilled';
-        state.userProfile = action.payload;
-        state.error = null;
-      })
-      .addCase(getProfile.rejected, (state, action) => {
-        state.loading = 'rejected';
-        state.error = action.payload.error;
       });
+    // .addCase(getProfile.pending, state => {
+    //   state.loading = 'pending';
+    // })
+    // .addCase(getProfile.fulfilled, (state, action) => {
+    //   state.loading = 'fulfilled';
+    //   state.userProfile = action.payload;
+    //   state.error = null;
+    // })
+    // .addCase(getProfile.rejected, (state, action) => {
+    //   state.loading = 'rejected';
+    //   state.error = action.payload.error;
+    // });
   },
 });
 
@@ -77,6 +76,8 @@ export const { logOut } = authSlice.actions;
 
 export const currentUser = state => state.auth.user;
 
-export const currentUserProfile = state => state.auth.userProfile;
+export const authLoading = state => state.auth.loading;
+
+// export const currentUserProfile = state => state.auth.userProfile;
 
 export const accessToken = state => state.auth.token;
